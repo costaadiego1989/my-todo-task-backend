@@ -8,3 +8,6 @@ exports.getTask = async (taskId) => {
   return await Task.findById(taskId);
 };
 
+exports.getTask = async () => {
+  return await Task.find();
+};

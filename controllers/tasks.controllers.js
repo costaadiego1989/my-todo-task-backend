@@ -23,4 +23,11 @@ exports.getTask = async (req, res) => {
   }
 };
 
-
+exports.getTasks = async (req, res) => {
+  try {
+    const tasks = await Task.getTask();
+    res.status(200).json({ sucesso: tasks });
+  } catch (error) {
+    res.status(500).json({ error: error });
+  }
+};
