@@ -14,6 +14,11 @@ app.use(cors({
     allowHeaders: ['Content-Type', 'Authorization', 'Accept']
 }));
 
+const tasksRouter = require('./routes/tasks.router');
+app.use("/api", tasksRouter);
+
+require('./database/connection');
+
 app.listen(process.env.PORT, () => {
     console.log('\x1b[32m%s\x1b[0m', `\nAPI rodando na porta: ${process.env.PORT} no ambiente: ${process.env.NODE_ENV}\n`);
 });
