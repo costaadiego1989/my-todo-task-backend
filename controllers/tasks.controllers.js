@@ -13,3 +13,14 @@ exports.createTask = async (req, res) => {
   }
 };
 
+exports.getTask = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const task = await Task.getTask(id);
+    res.status(200).json({ sucesso: task });
+  } catch (error) {
+    res.status(500).json({ error: error });
+  }
+};
+
+
