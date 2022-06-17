@@ -1,11 +1,12 @@
 process.env.PORT = process.env.PORT || 8080;
 process.env.NODE_ENV = process.env.NODE_ENV || 'development';
 
-var express = require('express');
+const bodyParser = require('body-parser');
+const express = require('express');
 const app = express();
 
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 const cors = require('cors');
 app.use(cors({

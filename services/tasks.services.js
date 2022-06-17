@@ -8,7 +8,11 @@ exports.getTask = async (taskId) => {
   return await Task.findById(taskId);
 };
 
-exports.getTask = async () => {
+exports.getTaskByName = async (taskName) => {
+  return await Task.find({ name: taskName });
+};
+
+exports.getTasks = async () => {
   return await Task.find();
 };
 
@@ -16,6 +20,10 @@ exports.updateTask = async (task) => {
   return await new Task(task).save();
 };
 
+exports.completedTask = async (task) => {
+  return await new Task(task).save().sort({ name: 'desc' });
+};
+
 exports.deleteTask = async (taskId) => {
-    return await Task.findByIdAndDelete(taskId);
-  };
+  return await Task.findByIdAndDelete(taskId);
+};
