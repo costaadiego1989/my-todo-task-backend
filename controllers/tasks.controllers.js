@@ -24,15 +24,15 @@ exports.getTask = async (req, res) => {
 };
 
 exports.getTaskByName = async (req, res) => {
-    try {
-      const name = req.params.name;
-      console.log(name);
-      const task = await Task.getTaskByName(name);
-      res.status(200).json({ sucesso: task });
-    } catch (error) {
-      res.status(500).json({ error: error });
-    }
-  };
+  try {
+    const name = req.params.name;
+    console.log(name);
+    const task = await Task.getTaskByName(name);
+    res.status(200).json({ sucesso: task });
+  } catch (error) {
+    res.status(500).json({ error: error });
+  }
+};
 
 exports.getTasks = async (req, res) => {
   try {
@@ -62,22 +62,28 @@ exports.updateTask = async (req, res) => {
 };
 
 exports.completedTask = async (req, res) => {
-    try {
-      const { id } = req.body;
-      const bol = false;
+  try {
+    const { id } = req.body;
+    const task = await Task.getTask(id);
+    if (task.completed === false) {
       const taskData = {
-        completed: !bol,
+        completed: true,
       };
-      const task = await Task.getTask(id);
       Object.assign(task, taskData);
-      await Task.completedTask(task);
-      res
-        .status(200)
-        .json({ sucesso: "Tarefa completada com sucesso.", tarefa: task });
-    } catch (error) {
-      res.status(400).json({ error: error });
+    } else {
+      const taskData = {
+        completed: false,
+      };
+      Object.assign(task, taskData);
     }
-  };
+    await Task.completedTask(task);
+    res
+      .status(200)
+      .json({ sucesso: "Tarefa completada com sucesso.", tarefa: task });
+  } catch (error) {
+    res.status(400).json({ error: error });
+  }
+};
 
 exports.deleteTask = async (req, res) => {
   try {

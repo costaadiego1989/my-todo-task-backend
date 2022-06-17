@@ -13,7 +13,7 @@ exports.getTaskByName = async (taskName) => {
 };
 
 exports.getTasks = async () => {
-  return await Task.find();
+  return await Task.find().sort({ date: -1 });
 };
 
 exports.updateTask = async (task) => {
@@ -21,7 +21,7 @@ exports.updateTask = async (task) => {
 };
 
 exports.completedTask = async (task) => {
-  return await new Task(task).save().sort({ name: 'desc' });
+  return await new Task(task).save().sort("name");
 };
 
 exports.deleteTask = async (taskId) => {
